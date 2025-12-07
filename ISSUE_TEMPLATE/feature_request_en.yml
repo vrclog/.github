@@ -1,0 +1,102 @@
+name: "Feature Request (English)"
+description: "Suggest a new feature or enhancement for vrclog tools"
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Thank you for your feature suggestion!
+
+        We appreciate your ideas for improving vrclog. Please fill out the form below to help us understand your request.
+
+  - type: checkboxes
+    id: preflight
+    attributes:
+      label: Pre-flight Checklist
+      description: Please confirm the following before submitting
+      options:
+        - label: I have searched existing issues and this feature has not been requested
+          required: true
+        - label: This feature is related to vrclog tools, not VRChat itself
+          required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem Statement
+      description: |
+        What problem are you trying to solve? What's the use case?
+        A clear description of the problem helps us understand why this feature is needed.
+      placeholder: |
+        I'm trying to...
+        Currently, I have to...
+        This is frustrating because...
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      description: Describe the solution you'd like to see
+      placeholder: |
+        I would like vrclog to...
+        This could work by...
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: Have you considered any alternative solutions or workarounds?
+      placeholder: |
+        I've tried...
+        Another approach could be...
+    validations:
+      required: false
+
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Feature Scope
+      description: Which vrclog component would this feature affect?
+      options:
+        - Library (Go package)
+        - CLI tool
+        - Documentation
+        - Other / Not sure
+    validations:
+      required: true
+
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Example Use Case
+      description: |
+        Describe a specific scenario where this feature would be useful.
+        If applicable, include example log entries or expected output.
+      placeholder: |
+        For example, when I'm monitoring logs for...
+        The output would look like...
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Any other information, screenshots, or references that might help
+      placeholder: Additional context...
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contribution
+      description: Would you be interested in contributing to this feature?
+      options:
+        - label: I would be willing to help implement this feature
+          required: false

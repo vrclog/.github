@@ -1,0 +1,116 @@
+name: "不具合報告 (日本語)"
+description: "vrclog ツールのバグや予期しない動作を報告する"
+title: "[バグ]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## バグ報告ありがとうございます！
+
+        以下のフォームに記入して、問題の理解と再現にご協力ください。
+
+        **プライバシーに関する注意**: VRChat のログには個人情報（ユーザー名、ワールド名）が含まれています。共有する前に機密情報を編集してください。
+
+  - type: checkboxes
+    id: preflight
+    attributes:
+      label: 事前チェックリスト
+      description: 送信前に以下を確認してください
+      options:
+        - label: 既存の Issue を検索し、このバグがまだ報告されていないことを確認しました
+          required: true
+        - label: "[サポートガイド](https://github.com/vrclog/.github/blob/main/SUPPORT.ja.md)を読みました"
+          required: true
+        - label: これは VRChat 本体ではなく、vrclog のバグです
+          required: true
+
+  - type: input
+    id: tool-version
+    attributes:
+      label: ツールとバージョン
+      description: どの vrclog ツールを使用していますか？バージョンは？
+      placeholder: "例: vrclog-go v0.1.0"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: os
+    attributes:
+      label: オペレーティングシステム
+      description: どのOSを使用していますか？
+      options:
+        - Windows 11
+        - Windows 10
+        - その他（説明欄に記載してください）
+    validations:
+      required: true
+
+  - type: input
+    id: go-version
+    attributes:
+      label: Go バージョン（ソースからビルドした場合）
+      description: ソースからビルドした場合、どの Go バージョンを使用しましたか？
+      placeholder: "例: go1.22.0"
+    validations:
+      required: false
+
+  - type: textarea
+    id: description
+    attributes:
+      label: バグの説明
+      description: バグの明確で簡潔な説明
+      placeholder: 何が起こったか説明してください...
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: 再現手順
+      description: このバグを再現するにはどうすればよいですか？
+      placeholder: |
+        1. コマンド '...' を実行
+        2. ログファイル '...' で
+        3. エラーを確認...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: 期待される動作
+      description: 何が起こることを期待しましたか？
+      placeholder: 期待した動作を説明してください...
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: 実際の動作
+      description: 実際には何が起こりましたか？
+      placeholder: 実際に起こったことを説明してください...
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: 関連するログまたはエラーメッセージ
+      description: |
+        関連するログ出力やエラーメッセージを含めてください。
+        **ユーザー名、ワールド名、その他の個人情報を必ず編集してください！**
+      placeholder: ログをここに貼り付けてください（個人情報を編集！）
+      render: text
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: 追加情報
+      description: 役立つ可能性のあるその他の情報
+      placeholder: 追加情報...
+    validations:
+      required: false

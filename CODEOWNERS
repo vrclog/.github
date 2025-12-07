@@ -1,0 +1,14 @@
+# CODEOWNERS file for vrclog organization
+# https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owners for everything in the repo
+# These users will be requested for review when someone opens a pull request.
+#
+# TODO: Replace @your-username with actual maintainer GitHub username(s)
+# 例: * @maintainer1 @maintainer2
+
+* @graaaaaaa
+
+# Japanese translations
+# Add Japanese-speaking reviewers here if you have dedicated translators
+# *.ja.md @translator-username

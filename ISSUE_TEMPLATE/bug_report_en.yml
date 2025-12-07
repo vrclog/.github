@@ -1,0 +1,116 @@
+name: "Bug Report (English)"
+description: "Report a bug or unexpected behavior in vrclog tools"
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Thank you for reporting a bug!
+
+        Please fill out the form below to help us understand and reproduce the issue.
+
+        **Privacy Notice**: VRChat logs contain personal information (usernames, world names). Please redact any sensitive information before sharing.
+
+  - type: checkboxes
+    id: preflight
+    attributes:
+      label: Pre-flight Checklist
+      description: Please confirm the following before submitting
+      options:
+        - label: I have searched existing issues and this bug has not been reported
+          required: true
+        - label: I have read the [Support Guide](https://github.com/vrclog/.github/blob/main/SUPPORT.md)
+          required: true
+        - label: This is a bug in vrclog, not in VRChat itself
+          required: true
+
+  - type: input
+    id: tool-version
+    attributes:
+      label: Tool and Version
+      description: Which vrclog tool are you using and what version?
+      placeholder: "e.g., vrclog-go v0.1.0"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating System
+      description: What operating system are you using?
+      options:
+        - Windows 11
+        - Windows 10
+        - Other (please specify in description)
+    validations:
+      required: true
+
+  - type: input
+    id: go-version
+    attributes:
+      label: Go Version (if building from source)
+      description: If you built from source, what Go version did you use?
+      placeholder: "e.g., go1.22.0"
+    validations:
+      required: false
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug Description
+      description: A clear and concise description of the bug
+      placeholder: Describe what happened...
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: How can we reproduce this bug?
+      placeholder: |
+        1. Run command '...'
+        2. With log file '...'
+        3. See error...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What did you expect to happen?
+      placeholder: Describe what you expected...
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior
+      description: What actually happened?
+      placeholder: Describe what actually happened...
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant Logs or Error Messages
+      description: |
+        Please include any relevant log output or error messages.
+        **Remember to redact usernames, world names, and other personal information!**
+      placeholder: Paste logs here (redact personal info!)
+      render: text
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Any other information that might be helpful
+      placeholder: Additional context...
+    validations:
+      required: false
