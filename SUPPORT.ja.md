@@ -22,6 +22,7 @@
 **vrclog ツールの主要なサポートチャンネル**
 
 - [vrclog-go Issues](https://github.com/vrclog/vrclog-go/issues)
+- [vrclog-companion Issues](https://github.com/vrclog/vrclog-companion/issues)
 
 GitHub Issues は以下の目的で使用してください：
 - バグ報告
@@ -50,7 +51,8 @@ GitHub Issues は以下の目的で使用してください：
 
 | トピック | 説明 |
 |---------|------|
-| **vrclog ツール** | vrclog ライブラリと CLI のインストール、設定、使用方法 |
+| **vrclog-go** | Go ライブラリと CLI のインストール、設定、使用方法 |
+| **vrclog-companion** | セットアップ、設定、Web UI、Discord 通知、API の使用方法 |
 | **バグ報告** | vrclog ソフトウェアの動作に関する問題 |
 | **機能要望** | 新機能の提案 |
 | **ドキュメント** | ドキュメントの明確化と改善 |
@@ -66,6 +68,7 @@ GitHub Issues は以下の目的で使用してください：
 | VRChat アカウントの問題 | [VRChat サポート](https://help.vrchat.com/) |
 | ネットワーク/ISP の問題 | ISP またはネットワーク管理者 |
 | 一般的な Go プログラミング | [Go Forum](https://forum.golanggo.dev/)、Stack Overflow |
+| 一般的な React/TypeScript | Stack Overflow、React ドキュメント |
 | Windows システムの問題 | Microsoft サポート |
 | ハードウェアの問題 | ハードウェアベンダー |
 
@@ -96,16 +99,19 @@ vrclog はボランティアによって維持されています。以下をご�
 ### 1. 既存の Issue を検索
 
 あなたの質問はすでに回答されているかもしれません。以下を検索してください：
-- [オープンな Issues](https://github.com/vrclog/vrclog-go/issues)
-- [クローズされた Issues](https://github.com/vrclog/vrclog-go/issues?q=is%3Aissue+is%3Aclosed)
+- [vrclog-go オープンな Issues](https://github.com/vrclog/vrclog-go/issues)
+- [vrclog-go クローズされた Issues](https://github.com/vrclog/vrclog-go/issues?q=is%3Aissue+is%3Aclosed)
+- [vrclog-companion オープンな Issues](https://github.com/vrclog/vrclog-companion/issues)
+- [vrclog-companion クローズされた Issues](https://github.com/vrclog/vrclog-companion/issues?q=is%3Aissue+is%3Aclosed)
 
 ### 2. 情報を収集
 
 問題を報告する際は、以下を含めてください：
 
-- **ツールとバージョン**: 例：`vrclog-go v0.1.0`
+- **ツールとバージョン**: 例：`vrclog-go v0.1.0` または `vrclog-companion v0.1.0`
 - **オペレーティングシステム**: 例：Windows 11 23H2
-- **Go バージョン**（ソースからビルドする場合）: 例：`go1.22.0`
+- **Go バージョン**（ソースからビルドする場合）: 例：`go1.23.0`
+- **Node.js バージョン**（vrclog-companion Web UI の問題の場合）: 例：`v20.0.0`
 - **再現手順**: 何をしましたか？
 - **期待される動作**: 何が起こることを期待しましたか？
 - **実際の動作**: 実際には何が起こりましたか？
@@ -132,6 +138,24 @@ VRChat のログには個人情報が含まれています。共有する前に�
 通常：`C:\Users\<あなたのユーザー名>\AppData\LocalLow\VRChat\VRChat\`
 
 ログファイルの名前は次のようになります：`output_log_YYYY-MM-DD_HH-MM-SS.txt`
+
+## vrclog-companion 固有のサポート
+
+### Web UI の問題
+
+Web UI で問題が発生している場合：
+
+1. ブラウザコンソールで JavaScript エラーを確認（F12 → コンソール）
+2. バックエンドが動作していることを確認（`http://127.0.0.1:8080/api/v1/health`）
+3. LAN モードが有効で、Basic Auth が正しく設定されているか確認
+
+### Discord 通知
+
+Discord 通知が機能しない場合：
+
+1. `config.json` で Webhook URL が正しいことを確認
+2. Discord のサーバーが稼働していることを確認
+3. アプリケーションログでエラーメッセージを確認
 
 ## コミュニティガイドライン
 

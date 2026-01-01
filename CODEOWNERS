@@ -3,12 +3,20 @@
 
 # Default owners for everything in the repo
 # These users will be requested for review when someone opens a pull request.
-#
-# TODO: Replace @your-username with actual maintainer GitHub username(s)
-# 例: * @maintainer1 @maintainer2
-
 * @graaaaaaa
 
+# Security-sensitive files
+SECURITY.md @graaaaaaa
+SECURITY.ja.md @graaaaaaa
+
 # Japanese translations
-# Add Japanese-speaking reviewers here if you have dedicated translators
-# *.ja.md @translator-username
+# All Japanese translation files are also owned by the main maintainer
+*.ja.md @graaaaaaa
+
+# Issue and PR templates
+ISSUE_TEMPLATE/ @graaaaaaa
+PULL_REQUEST_TEMPLATE.md @graaaaaaa
+
+# Note: When the team grows, consider creating GitHub teams:
+# * @vrclog/maintainers
+# *.ja.md @vrclog/translators

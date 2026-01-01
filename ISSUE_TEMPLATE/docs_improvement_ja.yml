@@ -1,0 +1,99 @@
+name: "ドキュメント改善 (日本語)"
+description: "ドキュメントの改善を提案する"
+title: "[Docs]: "
+labels: ["documentation"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## ドキュメント改善のご協力ありがとうございます！
+
+        明確なドキュメントは良いユーザー体験に不可欠です。改善が必要な点の特定にご協力ください。
+
+  - type: checkboxes
+    id: preflight
+    attributes:
+      label: 事前チェックリスト
+      description: 送信前に以下を確認してください
+      options:
+        - label: 既存の Issue を検索し、このドキュメントの問題がまだ報告されていないことを確認しました
+          required: true
+
+  - type: dropdown
+    id: repository
+    attributes:
+      label: リポジトリ
+      description: どのリポジトリのドキュメントを改善する必要がありますか？
+      options:
+        - vrclog-go
+        - vrclog-companion
+        - .github (organization ドキュメント)
+        - その他 / 不明
+    validations:
+      required: true
+
+  - type: dropdown
+    id: issue-type
+    attributes:
+      label: 改善の種類
+      description: どのような種類のドキュメント改善を提案していますか？
+      options:
+        - ドキュメントの欠落
+        - 不正確または古い情報
+        - 不明確または混乱を招く説明
+        - タイプミスまたは文法エラー
+        - 例やチュートリアルの欠落
+        - 翻訳の改善
+        - その他
+    validations:
+      required: true
+
+  - type: input
+    id: location
+    attributes:
+      label: ドキュメントの場所
+      description: 改善が必要なドキュメントはどこですか？（URL、ファイルパス、またはセクション名）
+      placeholder: "例: README.md, CONTRIBUTING.md, 「インストール」セクション"
+    validations:
+      required: true
+
+  - type: textarea
+    id: current
+    attributes:
+      label: 現在の内容（該当する場合）
+      description: 現在のドキュメントには何と書かれていますか？（関連するテキストを引用）
+      placeholder: |
+        現在のドキュメントには...と書かれています
+    validations:
+      required: false
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: 問題の説明
+      description: 現在のドキュメントの何が問題ですか、または何が欠けていますか？
+      placeholder: |
+        ドキュメントが不明確なのは...のためです
+        このセクションには...についての情報が欠けています
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: 改善の提案
+      description: このドキュメントをどのように改善しますか？
+      placeholder: |
+        ...の方がより明確になります
+        ...についての情報を追加してください
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: 貢献
+      description: この改善を貢献することに興味がありますか？
+      options:
+        - label: この改善を含む PR を提出したいです
+          required: false

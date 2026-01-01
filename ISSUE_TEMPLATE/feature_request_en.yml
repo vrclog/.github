@@ -21,6 +21,19 @@ body:
         - label: This feature is related to vrclog tools, not VRChat itself
           required: true
 
+  - type: dropdown
+    id: repository
+    attributes:
+      label: Repository
+      description: Which vrclog tool would this feature affect?
+      options:
+        - vrclog-go
+        - vrclog-companion
+        - Both / Cross-project
+        - Other / Not sure
+    validations:
+      required: true
+
   - type: textarea
     id: problem
     attributes:
@@ -61,10 +74,12 @@ body:
     id: scope
     attributes:
       label: Feature Scope
-      description: Which vrclog component would this feature affect?
+      description: Which component would this feature affect?
       options:
         - Library (Go package)
         - CLI tool
+        - Backend / API
+        - Web UI
         - Documentation
         - Other / Not sure
     validations:

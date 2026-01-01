@@ -9,6 +9,7 @@ vrclog への貢献に興味を持っていただきありがとうございま�
 **vrclog** は、VRChat のログファイルを扱うためのオープンソースツールを開発している GitHub organization です。主要なリポジトリは以下の通りです：
 
 - **[vrclog-go](https://github.com/vrclog/vrclog-go)**: VRChat ログの解析・監視を行う Go ライブラリおよび CLI
+- **[vrclog-companion](https://github.com/vrclog/vrclog-companion)**: SQLite への永続化、Web UI、Discord 通知機能を持つログ監視アプリ
 
 すべての vrclog ツールはローカルマシン上で動作するよう設計されています。VRChat のログファイルを読み取り、構造化されたイベントデータ（参加、退出、ワールド移動など）を抽出しますが、デフォルトでは外部サーバーへのアップロードは行いません。
 
@@ -20,8 +21,12 @@ vrclog への貢献にはさまざまな方法があります：
 
 ### バグ報告
 
-バグを発見しましたか？以下の情報を含めて [Issue を作成](https://github.com/vrclog/vrclog-go/issues/new)してください：
+バグを発見しましたか？該当するリポジトリで Issue を作成してください：
 
+- [vrclog-go Issues](https://github.com/vrclog/vrclog-go/issues/new)
+- [vrclog-companion Issues](https://github.com/vrclog/vrclog-companion/issues/new)
+
+以下の情報を含めてください：
 - 問題の明確な説明
 - 再現手順
 - 期待される動作と実際の動作
@@ -30,7 +35,7 @@ vrclog への貢献にはさまざまな方法があります：
 
 ### 機能要望
 
-新機能のアイデアがありますか？ぜひお聞かせください！以下を記載して [Issue を作成](https://github.com/vrclog/vrclog-go/issues/new)してください：
+新機能のアイデアがありますか？ぜひお聞かせください！該当するリポジトリで Issue を作成し、以下を記載してください：
 
 - 解決したい問題
 - 提案する解決策
@@ -46,7 +51,7 @@ vrclog への貢献にはさまざまな方法があります：
 
 ### コード貢献
 
-コードを書く準備ができましたか？下記の[開発ガイド](#開発ガイドgo)をご覧ください。
+コードを書く準備ができましたか？下記の[開発ガイド](#開発ガイド)をご覧ください。
 
 ### テスト
 
@@ -56,15 +61,29 @@ vrclog への貢献にはさまざまな方法があります：
 - 統合テストの作成
 - テスト失敗の報告
 
-## 開発ガイド（Go）
+## Good First Issues（初めての方向け）
 
-### 必要条件
+vrclog やオープンソースが初めての方は、`good first issue` ラベルが付いた Issue をご覧ください：
 
-- **Go 1.22 以降**（Go の N-1 サポートポリシーに従っています）
+- [vrclog-go Good First Issues](https://github.com/vrclog/vrclog-go/labels/good%20first%20issue)
+- [vrclog-companion Good First Issues](https://github.com/vrclog/vrclog-companion/labels/good%20first%20issue)
+
+これらの Issue は：
+- 小さく明確に定義されている（通常 2-4 時間程度の作業）
+- テストやドキュメントに焦点を当てていることが多い
+- コードベースを学ぶのに最適
+
+## 開発ガイド
+
+### vrclog-go
+
+#### 必要条件
+
+- **Go 1.23 以降**（`iter.Seq2` イテレータサポートに必要）
 - **Git**
 - VRChat がインストールされた Windows マシン（実際のログでテストする場合）
 
-### はじめに
+#### はじめに
 
 1. リポジトリをフォーク
 2. フォークをクローン：
@@ -77,30 +96,87 @@ vrclog への貢献にはさまざまな方法があります：
    git checkout -b feature/your-feature-name
    ```
 
-### コードスタイル
+#### コードスタイル
 
 - コミット前に `gofmt` でコードをフォーマット
 - 標準的な Go の慣習とイディオムに従う
 - シンプルに保つ – 巧妙さより明確さを優先
 - 説明的なコミットメッセージを書く
 
-### テストの実行
-
-PR を提出する前に、すべてのテストが通ることを確認してください：
+#### テストの実行
 
 ```bash
 go test ./...
 ```
 
-### 静的解析（任意だが推奨）
-
-追加のチェックには `golangci-lint` の使用を推奨します：
+#### 静的解析（任意だが推奨）
 
 ```bash
 golangci-lint run
 ```
 
-これはコントリビューターにとっては任意ですが、CI で実行されます。
+### vrclog-companion
+
+#### 必要条件
+
+- **Go 1.25 以降**（バックエンド）
+- **Node.js 20 以降**（フロントエンド/Web UI）
+- **Git**
+- VRChat がインストールされた Windows マシン（実際のログでテストする場合）
+
+#### はじめに
+
+1. リポジトリをフォーク
+2. フォークをクローン：
+   ```bash
+   git clone https://github.com/YOUR_USERNAME/vrclog-companion.git
+   cd vrclog-companion
+   ```
+3. 変更用のブランチを作成：
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+
+#### バックエンド開発
+
+```bash
+# ビルドと実行
+go build -o vrclog ./cmd/vrclog
+./vrclog
+
+# テストの実行
+go test ./...
+```
+
+#### フロントエンド開発（Web UI）
+
+```bash
+# 依存関係のインストール
+cd web
+npm install
+
+# 開発サーバーの起動
+npm run dev
+
+# Lint とフォーマット
+npm run lint
+npm run format
+
+# 本番用ビルド
+npm run build
+```
+
+フロントエンド開発サーバーは、デフォルトで `http://127.0.0.1:8080` のバックエンド API に接続します。
+
+## レスポンス時間
+
+vrclog はボランティアによって維持されています。以下をご理解ください：
+
+- **Issue**: 1 週間以内の応答を目指していますが、それ以上かかる場合もあります
+- **Pull Request**: 1-2 週間以内のレビュー開始を目指しています
+- **複雑な問題**: 調査に時間がかかる場合があります
+
+ご理解とご協力をお願いいたします！
 
 ## Issue
 
@@ -134,9 +210,9 @@ golangci-lint run
 
 PR を提出する前に：
 
-- [ ] テストを追加または更新した
-- [ ] `go test ./...` が成功する
-- [ ] `gofmt` でコードをフォーマットした
+- [ ] テストを追加または更新した（該当する場合）
+- [ ] すべてのテストが成功する
+- [ ] コードをフォーマットし、Lint を通した
 - [ ] ドキュメントを更新した（該当する場合）
 - [ ] コミットメッセージが明確で説明的である
 

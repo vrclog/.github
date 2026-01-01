@@ -10,6 +10,18 @@ contact_links:
       Please report security vulnerabilities privately via email, not through public issues.
       セキュリティ脆弱性は公開 Issue ではなく、メールでプライベートに報告してください。
 
+  - name: vrclog-go Repository
+    url: https://github.com/vrclog/vrclog-go/issues
+    about: |
+      For issues specific to the vrclog-go library and CLI, open an issue there.
+      vrclog-go ライブラリと CLI に特化した問題は、こちらで Issue を作成してください。
+
+  - name: vrclog-companion Repository
+    url: https://github.com/vrclog/vrclog-companion/issues
+    about: |
+      For issues specific to vrclog-companion (Web UI, Discord, API), open an issue there.
+      vrclog-companion（Web UI、Discord、API）に特化した問題は、こちらで Issue を作成してください。
+
   - name: VRChat Support / VRChat サポート
     url: https://help.vrchat.com/
     about: |

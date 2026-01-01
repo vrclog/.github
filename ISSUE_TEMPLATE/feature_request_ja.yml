@@ -21,6 +21,19 @@ body:
         - label: この機能は VRChat 本体ではなく、vrclog ツールに関連しています
           required: true
 
+  - type: dropdown
+    id: repository
+    attributes:
+      label: リポジトリ
+      description: この機能はどの vrclog ツールに影響しますか？
+      options:
+        - vrclog-go
+        - vrclog-companion
+        - 両方 / クロスプロジェクト
+        - その他 / 不明
+    validations:
+      required: true
+
   - type: textarea
     id: problem
     attributes:
@@ -61,10 +74,12 @@ body:
     id: scope
     attributes:
       label: 機能の範囲
-      description: この機能はどの vrclog コンポーネントに影響しますか？
+      description: この機能はどのコンポーネントに影響しますか？
       options:
         - ライブラリ (Go パッケージ)
         - CLI ツール
+        - バックエンド / API
+        - Web UI
         - ドキュメント
         - その他 / 不明
     validations:

@@ -1,5 +1,7 @@
 # vrclog
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
 **Open-source tools and libraries for VRChat logs, sessions, and insights.**
 
 ---
@@ -11,31 +13,45 @@ vrclog is a community-driven organization developing open-source tools to help V
 - Player joins and leaves
 - World transitions
 - Session tracking
-- And more to come...
+- Discord notifications
+- Web-based dashboards
 
 > **Note**: vrclog is an unofficial community project and is **not affiliated with VRChat Inc.** All tools operate locally on your machine and do not upload data to any cloud services by default.
 
 ## Repositories
 
-| Repository | Description | Language |
-|------------|-------------|----------|
-| [vrclog-go](https://github.com/vrclog/vrclog-go) | Core library and CLI for VRChat log parsing | Go |
+| Repository | Description | Status | Language |
+|------------|-------------|--------|----------|
+| [vrclog-go](https://github.com/vrclog/vrclog-go) | Core library and CLI for VRChat log parsing | Active | Go |
+| [vrclog-companion](https://github.com/vrclog/vrclog-companion) | Log watcher with SQLite persistence, Web UI & Discord notifications | Active | Go, TypeScript |
 
-*More repositories coming soon...*
+## Features
+
+### vrclog-go
+- Parse VRChat log files into structured events
+- Real-time log monitoring (like `tail -f`)
+- JSON Lines output for easy processing with `jq`
+- Human-readable pretty output format
+
+### vrclog-companion
+- VRChat log monitoring with event persistence (SQLite)
+- Web UI for browsing session history
+- Discord webhook notifications with batching
+- Real-time updates via SSE (Server-Sent Events)
+- HTTP API for integration with other tools
 
 ## Future Plans
 
-We aim to expand the vrclog ecosystem with:
+We aim to continue expanding the vrclog ecosystem with:
 
-- History viewers and session browsers
-- Notification systems
-- Analytics dashboards
-- Integrations with other tools and platforms
+- Enhanced analytics and statistics
+- Additional notification integrations
+- Cross-platform support improvements
+- Community-requested features
 
 ## Community
 
-- **Issues & Discussions**: [GitHub Issues](https://github.com/vrclog)
-- **Discord**: *Coming soon*
+- **Issues & Discussions**: [vrclog-go](https://github.com/vrclog/vrclog-go/issues) | [vrclog-companion](https://github.com/vrclog/vrclog-companion/issues)
 - **Contact**: vrclog@googlegroups.com
 
 ## Language Policy

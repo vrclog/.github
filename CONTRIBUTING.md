@@ -6,9 +6,10 @@ Thank you for your interest in contributing to vrclog! We welcome contributions 
 
 ## Overview
 
-**vrclog** is a GitHub organization developing open-source tools for working with VRChat log files. Our flagship repository is:
+**vrclog** is a GitHub organization developing open-source tools for working with VRChat log files. Our repositories include:
 
 - **[vrclog-go](https://github.com/vrclog/vrclog-go)**: A Go library and CLI for parsing and monitoring VRChat logs
+- **[vrclog-companion](https://github.com/vrclog/vrclog-companion)**: A log watcher with SQLite persistence, Web UI, and Discord notifications
 
 All vrclog tools are designed to run locally on your machine. They read VRChat log files to extract structured event data (joins, leaves, world changes, etc.) without uploading anything to external servers by default.
 
@@ -20,8 +21,12 @@ There are many ways to contribute to vrclog:
 
 ### Bug Reports
 
-Found a bug? Please [open an issue](https://github.com/vrclog/vrclog-go/issues/new) with:
+Found a bug? Please open an issue in the relevant repository:
 
+- [vrclog-go Issues](https://github.com/vrclog/vrclog-go/issues/new)
+- [vrclog-companion Issues](https://github.com/vrclog/vrclog-companion/issues/new)
+
+Include:
 - A clear description of the problem
 - Steps to reproduce the issue
 - Expected vs. actual behavior
@@ -30,7 +35,7 @@ Found a bug? Please [open an issue](https://github.com/vrclog/vrclog-go/issues/n
 
 ### Feature Requests
 
-Have an idea for a new feature? We'd love to hear it! Please [open an issue](https://github.com/vrclog/vrclog-go/issues/new) describing:
+Have an idea for a new feature? We'd love to hear it! Please open an issue in the relevant repository describing:
 
 - The problem you're trying to solve
 - Your proposed solution
@@ -46,7 +51,7 @@ Documentation improvements are always welcome:
 
 ### Code Contributions
 
-Ready to write some code? See the [Development Guide](#development-guide-go) below.
+Ready to write some code? See the [Development Guide](#development-guide) below.
 
 ### Tests
 
@@ -56,15 +61,29 @@ Help us improve test coverage:
 - Write integration tests
 - Report test failures
 
-## Development Guide (Go)
+## Good First Issues
 
-### Prerequisites
+New to vrclog or open source? Look for issues labeled `good first issue`:
 
-- **Go 1.22 or later** (we follow Go's N-1 support policy)
+- [vrclog-go Good First Issues](https://github.com/vrclog/vrclog-go/labels/good%20first%20issue)
+- [vrclog-companion Good First Issues](https://github.com/vrclog/vrclog-companion/labels/good%20first%20issue)
+
+These issues are:
+- Small and well-defined (typically 2-4 hours of work)
+- Often focused on tests or documentation
+- Great for learning the codebase
+
+## Development Guide
+
+### vrclog-go
+
+#### Prerequisites
+
+- **Go 1.23 or later** (required for `iter.Seq2` iterator support)
 - **Git**
 - A Windows machine with VRChat installed (for testing with real logs)
 
-### Getting Started
+#### Getting Started
 
 1. Fork the repository
 2. Clone your fork:
@@ -77,30 +96,87 @@ Help us improve test coverage:
    git checkout -b feature/your-feature-name
    ```
 
-### Code Style
+#### Code Style
 
 - **Format your code** with `gofmt` before committing
 - Follow standard Go conventions and idioms
 - Keep it simple – prefer clarity over cleverness
 - Write descriptive commit messages
 
-### Running Tests
-
-Before submitting a PR, ensure all tests pass:
+#### Running Tests
 
 ```bash
 go test ./...
 ```
 
-### Static Analysis (Optional but Recommended)
-
-We recommend using `golangci-lint` for additional checks:
+#### Static Analysis (Optional but Recommended)
 
 ```bash
 golangci-lint run
 ```
 
-This is optional for contributors but will be run in CI.
+### vrclog-companion
+
+#### Prerequisites
+
+- **Go 1.25 or later** (backend)
+- **Node.js 20 or later** (frontend/Web UI)
+- **Git**
+- A Windows machine with VRChat installed (for testing with real logs)
+
+#### Getting Started
+
+1. Fork the repository
+2. Clone your fork:
+   ```bash
+   git clone https://github.com/YOUR_USERNAME/vrclog-companion.git
+   cd vrclog-companion
+   ```
+3. Create a branch for your changes:
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+
+#### Backend Development
+
+```bash
+# Build and run
+go build -o vrclog ./cmd/vrclog
+./vrclog
+
+# Run tests
+go test ./...
+```
+
+#### Frontend Development (Web UI)
+
+```bash
+# Install dependencies
+cd web
+npm install
+
+# Start development server
+npm run dev
+
+# Lint and format
+npm run lint
+npm run format
+
+# Build for production
+npm run build
+```
+
+The frontend development server connects to the backend API at `http://127.0.0.1:8080` by default.
+
+## Response Times
+
+vrclog is maintained by volunteers. Please understand that:
+
+- **Issues**: We aim to respond within 1 week, but it may take longer
+- **Pull Requests**: We aim to start review within 1-2 weeks
+- **Complex issues**: May take longer to investigate
+
+We appreciate your patience!
 
 ## Issues
 
@@ -134,9 +210,9 @@ For significant changes (new features, API changes, architectural modifications)
 
 Before submitting your PR:
 
-- [ ] Tests added or updated
-- [ ] `go test ./...` passes
-- [ ] Code formatted with `gofmt`
+- [ ] Tests added or updated (if applicable)
+- [ ] Code passes all tests
+- [ ] Code formatted and linted
 - [ ] Documentation updated (if applicable)
 - [ ] Commit messages are clear and descriptive
 

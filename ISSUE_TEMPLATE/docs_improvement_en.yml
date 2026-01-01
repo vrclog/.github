@@ -1,0 +1,99 @@
+name: "Documentation Improvement (English)"
+description: "Suggest improvements to documentation"
+title: "[Docs]: "
+labels: ["documentation"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Thank you for helping improve our documentation!
+
+        Clear documentation is essential for a good user experience. Please help us identify what needs improvement.
+
+  - type: checkboxes
+    id: preflight
+    attributes:
+      label: Pre-flight Checklist
+      description: Please confirm the following before submitting
+      options:
+        - label: I have searched existing issues and this documentation issue has not been reported
+          required: true
+
+  - type: dropdown
+    id: repository
+    attributes:
+      label: Repository
+      description: Which repository's documentation needs improvement?
+      options:
+        - vrclog-go
+        - vrclog-companion
+        - .github (organization docs)
+        - Other / Not sure
+    validations:
+      required: true
+
+  - type: dropdown
+    id: issue-type
+    attributes:
+      label: Type of Improvement
+      description: What kind of documentation improvement are you suggesting?
+      options:
+        - Missing documentation
+        - Incorrect or outdated information
+        - Unclear or confusing explanation
+        - Typo or grammatical error
+        - Missing example or tutorial
+        - Translation improvement
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: location
+    attributes:
+      label: Document Location
+      description: Where is the documentation that needs improvement? (URL, file path, or section name)
+      placeholder: "e.g., README.md, CONTRIBUTING.md, 'Installation' section"
+    validations:
+      required: true
+
+  - type: textarea
+    id: current
+    attributes:
+      label: Current Content (if applicable)
+      description: What does the current documentation say? (Quote the relevant text)
+      placeholder: |
+        The current documentation says...
+    validations:
+      required: false
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem Description
+      description: What's wrong with the current documentation or what's missing?
+      placeholder: |
+        The documentation is unclear because...
+        This section is missing information about...
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Suggested Improvement
+      description: How would you improve this documentation?
+      placeholder: |
+        It would be clearer if...
+        Please add information about...
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contribution
+      description: Would you be interested in contributing this improvement?
+      options:
+        - label: I would be willing to submit a PR with this improvement
+          required: false

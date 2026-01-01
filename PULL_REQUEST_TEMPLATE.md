@@ -55,12 +55,21 @@ Does this PR introduce any breaking changes? If yes, describe them.
 
 ## Checklist / チェックリスト
 
-<!-- Check all that apply / 該当するものにチェック -->
+<!--
+Check all that apply. For repository-specific requirements, see the CONTRIBUTING guide.
+該当するものにチェック。リポジトリ固有の要件はCONTRIBUTINGガイドを参照してください。
+-->
 
-- [ ] `go test ./...` passes / `go test ./...` が成功
-- [ ] Code is formatted with `gofmt` / `gofmt` でフォーマット済み
+- [ ] Tests added or updated (if applicable) / テストを追加・更新（該当する場合）
+- [ ] Code passes all tests / すべてのテストが成功
+- [ ] Code formatted and linted / コードをフォーマットし、Lintを通した
 - [ ] Documentation updated (if needed) / ドキュメントを更新（必要な場合）
 - [ ] Commit messages are clear and descriptive / コミットメッセージが明確で説明的
+
+> **Note**: For repository-specific setup and testing instructions, see:
+> - [vrclog-go CONTRIBUTING](https://github.com/vrclog/vrclog-go/blob/main/CONTRIBUTING.md)
+> - [vrclog-companion CONTRIBUTING](https://github.com/vrclog/vrclog-companion/blob/main/CONTRIBUTING.md)
+> - [Organization CONTRIBUTING](https://github.com/vrclog/.github/blob/main/CONTRIBUTING.md)
 
 ## Additional Notes / 補足
 

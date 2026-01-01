@@ -25,12 +25,25 @@ body:
         - label: これは VRChat 本体ではなく、vrclog のバグです
           required: true
 
+  - type: dropdown
+    id: repository
+    attributes:
+      label: リポジトリ
+      description: どの vrclog ツールに影響がありますか？
+      options:
+        - vrclog-go
+        - vrclog-companion
+        - 両方 / 横断的
+        - その他 / 不明
+    validations:
+      required: true
+
   - type: input
     id: tool-version
     attributes:
       label: ツールとバージョン
       description: どの vrclog ツールを使用していますか？バージョンは？
-      placeholder: "例: vrclog-go v0.1.0"
+      placeholder: "例: vrclog-go v0.1.0 または vrclog-companion v0.1.0"
     validations:
       required: true
 
@@ -47,11 +60,11 @@ body:
       required: true
 
   - type: input
-    id: go-version
+    id: runtime-info
     attributes:
-      label: Go バージョン（ソースからビルドした場合）
-      description: ソースからビルドした場合、どの Go バージョンを使用しましたか？
-      placeholder: "例: go1.22.0"
+      label: ランタイム/ビルド情報（該当する場合）
+      description: ソースからビルドした場合、どの Go バージョンを使用しましたか？vrclog-companion Web UI の問題の場合は Node.js バージョンも含めてください。
+      placeholder: "例: go1.23.0, Node.js v20.0.0"
     validations:
       required: false
 

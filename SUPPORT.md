@@ -22,6 +22,7 @@ This document explains how to get help with vrclog projects and what kind of sup
 **Primary support channel for vrclog tools**
 
 - [vrclog-go Issues](https://github.com/vrclog/vrclog-go/issues)
+- [vrclog-companion Issues](https://github.com/vrclog/vrclog-companion/issues)
 
 Use GitHub Issues for:
 - Bug reports
@@ -50,7 +51,8 @@ We provide support for:
 
 | Topic | Description |
 |-------|-------------|
-| **vrclog tools** | Installation, configuration, and usage of vrclog libraries and CLI |
+| **vrclog-go** | Installation, configuration, and usage of the Go library and CLI |
+| **vrclog-companion** | Setup, configuration, Web UI, Discord notifications, and API usage |
 | **Bug reports** | Issues with vrclog software behavior |
 | **Feature requests** | Suggestions for new functionality |
 | **Documentation** | Clarifications and improvements to docs |
@@ -66,6 +68,7 @@ We cannot help with:
 | VRChat account problems | [VRChat Support](https://help.vrchat.com/) |
 | Network/ISP issues | Your ISP or network administrator |
 | General Go programming | [Go Forum](https://forum.golanggo.dev/), Stack Overflow |
+| General React/TypeScript | Stack Overflow, React documentation |
 | Windows system issues | Microsoft Support |
 | Hardware problems | Your hardware vendor |
 
@@ -96,16 +99,19 @@ To help us help you faster:
 ### 1. Search Existing Issues
 
 Your question may already be answered. Search:
-- [Open issues](https://github.com/vrclog/vrclog-go/issues)
-- [Closed issues](https://github.com/vrclog/vrclog-go/issues?q=is%3Aissue+is%3Aclosed)
+- [vrclog-go Open Issues](https://github.com/vrclog/vrclog-go/issues)
+- [vrclog-go Closed Issues](https://github.com/vrclog/vrclog-go/issues?q=is%3Aissue+is%3Aclosed)
+- [vrclog-companion Open Issues](https://github.com/vrclog/vrclog-companion/issues)
+- [vrclog-companion Closed Issues](https://github.com/vrclog/vrclog-companion/issues?q=is%3Aissue+is%3Aclosed)
 
 ### 2. Gather Information
 
 When reporting issues, please include:
 
-- **Tool and version**: e.g., `vrclog-go v0.1.0`
+- **Tool and version**: e.g., `vrclog-go v0.1.0` or `vrclog-companion v0.1.0`
 - **Operating system**: e.g., Windows 11 23H2
-- **Go version** (if building from source): e.g., `go1.22.0`
+- **Go version** (if building from source): e.g., `go1.23.0`
+- **Node.js version** (for vrclog-companion Web UI issues): e.g., `v20.0.0`
 - **Steps to reproduce**: What did you do?
 - **Expected behavior**: What did you expect to happen?
 - **Actual behavior**: What actually happened?
@@ -132,6 +138,24 @@ For reference, VRChat stores logs in:
 Typically: `C:\Users\<YourUsername>\AppData\LocalLow\VRChat\VRChat\`
 
 Log files are named like: `output_log_YYYY-MM-DD_HH-MM-SS.txt`
+
+## vrclog-companion Specific Support
+
+### Web UI Issues
+
+If you're having issues with the Web UI:
+
+1. Check browser console for JavaScript errors (F12 → Console)
+2. Verify the backend is running (`http://127.0.0.1:8080/api/v1/health`)
+3. Check if LAN mode is enabled and Basic Auth is configured correctly
+
+### Discord Notifications
+
+If Discord notifications aren't working:
+
+1. Verify your webhook URL is correct in `config.json`
+2. Check that Discord's servers are operational
+3. Review the application logs for error messages
 
 ## Community Guidelines
 
