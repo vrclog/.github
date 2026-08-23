@@ -8,10 +8,11 @@ vrclog への貢献に興味を持っていただきありがとうございま�
 
 **vrclog** は、VRChat のログファイルを扱うためのオープンソースツールを開発している GitHub organization です。主要なリポジトリは以下の通りです：
 
-- **[vrclog-go](https://github.com/vrclog/vrclog-go)**: VRChat ログの解析・監視を行う Go ライブラリおよび CLI
-- **[vrclog-companion](https://github.com/vrclog/vrclog-companion)**: SQLite への永続化、Web UI、Discord 通知機能を持つログ監視アプリ
+- **[vrclog-go](https://github.com/vrclog/vrclog-go)**: VRChat ログの読み取り・追跡・解析を行い、正規化されたイベントと Observation を生成するコア Go ライブラリおよび CLI
+- **[vrclog-adapters](https://github.com/vrclog/vrclog-adapters)**: YamaPlayer や iwaSync3 など、コミュニティ製 VRChat プロジェクトが出力するログ形式に対応するコンパイル時アダプター
+- **[vrclog-companion](https://github.com/vrclog/vrclog-companion)**: SQLite への永続化、Web UI、HTTP API、Discord 通知機能を持つローカル常駐アプリケーション
 
-すべての vrclog ツールはローカルマシン上で動作するよう設計されています。VRChat のログファイルを読み取り、構造化されたイベントデータ（参加、退出、ワールド移動など）を抽出しますが、デフォルトでは外部サーバーへのアップロードは行いません。
+すべての vrclog ツールはローカルマシン上で動作するよう設計されています。VRChat のログファイルを読み取り、構造化されたイベントデータ（参加、退出、ワールド移動、メディア URL など）を抽出しますが、デフォルトでは外部サーバーへのアップロードは行いません。
 
 > **注意**: vrclog は非公式のコミュニティプロジェクトであり、VRChat Inc. とは提携していません。
 
@@ -24,6 +25,7 @@ vrclog への貢献にはさまざまな方法があります：
 バグを発見しましたか？該当するリポジトリで Issue を作成してください：
 
 - [vrclog-go Issues](https://github.com/vrclog/vrclog-go/issues/new)
+- [vrclog-adapters Issues](https://github.com/vrclog/vrclog-adapters/issues/new)
 - [vrclog-companion Issues](https://github.com/vrclog/vrclog-companion/issues/new)
 
 以下の情報を含めてください：
@@ -53,6 +55,10 @@ vrclog への貢献にはさまざまな方法があります：
 
 コードを書く準備ができましたか？下記の[開発ガイド](#開発ガイド)をご覧ください。
 
+### アダプター
+
+独自のログ行を出力するコミュニティ製 VRChat プロジェクト（ワールドアセット、動画プレイヤーなど）をお持ちですか？下記の `vrclog-adapters` 開発ガイド内の[新しいアダプターの作成](#新しいアダプターの作成)をご覧ください。
+
 ### テスト
 
 テストカバレッジの向上にご協力ください：
@@ -66,6 +72,7 @@ vrclog への貢献にはさまざまな方法があります：
 vrclog やオープンソースが初めての方は、`good first issue` ラベルが付いた Issue をご覧ください：
 
 - [vrclog-go Good First Issues](https://github.com/vrclog/vrclog-go/labels/good%20first%20issue)
+- [vrclog-adapters Good First Issues](https://github.com/vrclog/vrclog-adapters/labels/good%20first%20issue)
 - [vrclog-companion Good First Issues](https://github.com/vrclog/vrclog-companion/labels/good%20first%20issue)
 
 これらの Issue は：
@@ -79,7 +86,7 @@ vrclog やオープンソースが初めての方は、`good first issue` ラベ
 
 #### 必要条件
 
-- **Go 1.23 以降**（`iter.Seq2` イテレータサポートに必要）
+- **Go 1.25 以降**
 - **Git**
 - VRChat がインストールされた Windows マシン（実際のログでテストする場合）
 
@@ -115,6 +122,43 @@ go test ./...
 golangci-lint run
 ```
 
+### vrclog-adapters
+
+#### 必要条件
+
+- **Go 1.25 以降**
+- **Git**
+
+#### はじめに
+
+1. リポジトリをフォーク
+2. フォークをクローン：
+   ```bash
+   git clone https://github.com/YOUR_USERNAME/vrclog-adapters.git
+   cd vrclog-adapters
+   ```
+3. 変更用のブランチを作成：
+   ```bash
+   git checkout -b feature/your-adapter-name
+   ```
+
+#### 新しいアダプターの作成
+
+アダプターは、特定のコミュニティプロジェクトのログ行を `vrclog-go` の正規化された Event 型にデコードするコンパイル時の Go パッケージです。アダプターを貢献する際は、以下の制約に注意してください：
+
+- **ステートレスかつレコード単位**: `Decode` は I/O を行わず、以前のレコードの状態に依存してはいけません。
+- **正規化された Event 型のみ**: アダプターは `vrclog-go` で定義された sealed な Event 型のみを出力できます。独自の Event 型は作成できません。
+- **アンカーされたルール**: マッチパターンはそのプロジェクト独自のログプレフィックスに固定し、汎用的な URL 検索は避けてください。
+- **fixture による検証必須**: すべてのアダプターは、実際のソースログ形式に一致する `testdata/` 配下の合成または完全に編集済みの fixture に対して検証されている必要があります。fixture のないプレースホルダー的なアダプターは受け付けません。
+- **集約 API なし**: `All()` のようなヘルパーは存在しません。利用側は使用したいアダプターを明示的にインポートします（`yamaplayer.New()`、`iwasync3.New()` など）。これにより、新しいアダプターの追加が既存アプリケーションの挙動を暗黙的に変えることはありません。
+- **fixture 内容の編集**: ログ由来のテストデータをコミットする前に、下記の[Fixture のプライバシー](#fixture-のプライバシー)を参照してください。
+
+#### テストの実行
+
+```bash
+go test ./...
+```
+
 ### vrclog-companion
 
 #### 必要条件
@@ -141,8 +185,8 @@ golangci-lint run
 
 ```bash
 # ビルドと実行
-go build -o vrclog ./cmd/vrclog
-./vrclog
+go build -o vrclog-companion ./cmd/vrclog-companion
+./vrclog-companion
 
 # テストの実行
 go test ./...
@@ -214,6 +258,9 @@ PR を提出する前に：
 - [ ] すべてのテストが成功する
 - [ ] コードをフォーマットし、Lint を通した
 - [ ] ドキュメントを更新した（該当する場合）
+- [ ] シークレット、生のログ、編集されていない認証情報がコミットされていない
+- [ ] fixture データの個人情報が編集されている（該当する場合 – [Fixture のプライバシー](#fixture-のプライバシー)を参照）
+- [ ] 破壊的変更が文書化されている（該当する場合）
 - [ ] コミットメッセージが明確で説明的である
 
 ### PR レビュープロセス
@@ -231,19 +278,39 @@ PR を提出する前に：
 
 ### 翻訳者の方へ
 
-- 翻訳が英語に遅れることがあります – これは問題ありません
+- 文言や表現の翻訳が英語に遅れることがあります – これは問題ありません
 - 古くなった翻訳に気づいた場合は、Issue または PR を作成してください
-- 英語ドキュメントを更新する際、日本語を同時に更新する必要はありません（していただけると助かりますが！）
 - 翻訳が原文の意味を正確に伝えていることを確認してください
+
+### 例外：事実に関するメタデータは同期を維持する必要があります
+
+一部の内容は編集的なものではなく事実的なものであり、これが古いまま放置されると実際の混乱を招きます（例えば、日本語の読者が誤ったリポジトリに誘導されるなど）。以下の内容は、同じ PR 内で英語と日本語の**両方**を更新するか、それができない場合は明示的なフォローアップ Issue で追跡する必要があります：
+
+- organization のリポジトリ一覧
+- サポートされる Go / Node.js のバージョン
+- 公開 API の例（例：`profile/README.md` 内のもの）
+- セキュリティおよびプライバシーに関するガイダンス（編集要件、スコープ、報告プロセス）
+
+## Fixture のプライバシー
+
+VRChat のログ、およびそこから生成されるアダプターの fixture には、表示名、ユーザー ID、ワールド/インスタンス ID、メディア URL、ローカルファイルパスなどの個人データが含まれる可能性があります。
+
+- **合成 fixture を優先してください。** 実際のセッションのデータを使わずに、実際のフォーマットに一致するログ行を作成してください。
+- **実ログの抜粋が必要な場合**、コミット前に最小限かつ完全に編集されている必要があります：
+  - 表示名やユーザー/ワールド/インスタンス ID をプレースホルダーに置き換える
+  - メディア URL を明確に偽物とわかるプレースホルダー URL に置き換える
+  - ローカルファイルパス、トークン、webhook URL を削除する
+  - 特定のセッションを識別できる可能性があるタイムスタンプを削除または調整する
 
 ## プライバシーに関する注意
 
 Issue の報告やログを共有する際：
 
-> **重要**: VRChat のログには、あなた自身や他の人のユーザー名、ワールド名、その他の情報が含まれています。**個人情報を編集せずに生のログを公開しないでください。**
+> **重要**: VRChat のログには、あなた自身や他の人のユーザー名、ワールド名、メディア URL、その他の情報が含まれています。**個人情報を編集せずに生のログを公開しないでください。**
 
 - 他のユーザーの表示名を削除または編集
 - 特定のセッションを識別できる可能性のあるワールドインスタンス ID を削除または編集
+- メディア URL、ローカルファイルパス、Discord webhook URL、トークンや認証情報を削除または編集
 - 不明な場合は、メンテナーに安全な情報共有方法を確認してください
 
 ## 行動規範

@@ -22,6 +22,7 @@
 **vrclog ツールの主要なサポートチャンネル**
 
 - [vrclog-go Issues](https://github.com/vrclog/vrclog-go/issues)
+- [vrclog-adapters Issues](https://github.com/vrclog/vrclog-adapters/issues)
 - [vrclog-companion Issues](https://github.com/vrclog/vrclog-companion/issues)
 
 GitHub Issues は以下の目的で使用してください：
@@ -51,7 +52,8 @@ GitHub Issues は以下の目的で使用してください：
 
 | トピック | 説明 |
 |---------|------|
-| **vrclog-go** | Go ライブラリと CLI のインストール、設定、使用方法 |
+| **vrclog-go** | コア Go ライブラリと CLI のインストール、設定、使用方法 |
+| **vrclog-adapters** | コミュニティアダプター（YamaPlayer、iwaSync3）のインストールと使用方法 |
 | **vrclog-companion** | セットアップ、設定、Web UI、Discord 通知、API の使用方法 |
 | **バグ報告** | vrclog ソフトウェアの動作に関する問題 |
 | **機能要望** | 新機能の提案 |
@@ -99,18 +101,17 @@ vrclog はボランティアによって維持されています。以下をご�
 ### 1. 既存の Issue を検索
 
 あなたの質問はすでに回答されているかもしれません。以下を検索してください：
-- [vrclog-go オープンな Issues](https://github.com/vrclog/vrclog-go/issues)
-- [vrclog-go クローズされた Issues](https://github.com/vrclog/vrclog-go/issues?q=is%3Aissue+is%3Aclosed)
-- [vrclog-companion オープンな Issues](https://github.com/vrclog/vrclog-companion/issues)
-- [vrclog-companion クローズされた Issues](https://github.com/vrclog/vrclog-companion/issues?q=is%3Aissue+is%3Aclosed)
+- [vrclog-go オープンな Issues](https://github.com/vrclog/vrclog-go/issues) / [クローズされた Issues](https://github.com/vrclog/vrclog-go/issues?q=is%3Aissue+is%3Aclosed)
+- [vrclog-adapters オープンな Issues](https://github.com/vrclog/vrclog-adapters/issues) / [クローズされた Issues](https://github.com/vrclog/vrclog-adapters/issues?q=is%3Aissue+is%3Aclosed)
+- [vrclog-companion オープンな Issues](https://github.com/vrclog/vrclog-companion/issues) / [クローズされた Issues](https://github.com/vrclog/vrclog-companion/issues?q=is%3Aissue+is%3Aclosed)
 
 ### 2. 情報を収集
 
 問題を報告する際は、以下を含めてください：
 
-- **ツールとバージョン**: 例：`vrclog-go v0.1.0` または `vrclog-companion v0.1.0`
+- **ツールとバージョン**: 例：`vrclog-go v0.1.0`、`vrclog-adapters v0.1.0`、または `vrclog-companion v0.1.0`
 - **オペレーティングシステム**: 例：Windows 11 23H2
-- **Go バージョン**（ソースからビルドする場合）: 例：`go1.23.0`
+- **Go バージョン**（ソースからビルドする場合）: 例：`go1.25.0`
 - **Node.js バージョン**（vrclog-companion Web UI の問題の場合）: 例：`v20.0.0`
 - **再現手順**: 何をしましたか？
 - **期待される動作**: 何が起こることを期待しましたか？
@@ -123,6 +124,7 @@ VRChat のログには個人情報が含まれています。共有する前に�
 
 - 他のプレイヤーの**ユーザー名を削除**
 - 特定のセッションを識別できる可能性のある**ワールドインスタンス ID を削除**
+- **メディア URL、ローカルファイルパス、Discord webhook URL、トークンや認証情報を削除**
 - **その他の個人情報を削除**
 
 プライバシーの詳細については、[コントリビューションガイド](./CONTRIBUTING.ja.md)を参照してください。
@@ -139,6 +141,14 @@ VRChat のログには個人情報が含まれています。共有する前に�
 
 ログファイルの名前は次のようになります：`output_log_YYYY-MM-DD_HH-MM-SS.txt`
 
+## vrclog-adapters 固有のサポート
+
+### アダプターが期待通りのイベントを生成しない場合
+
+1. 対象のワールドアセットに合ったアダプターを使用しているか確認してください（例：YamaPlayer のログは iwaSync3 アダプターでは解釈されません）
+2. ログ行が期待される形式と一致しているか確認してください — VRChat 側またはコミュニティプロジェクト側でログ出力が変更されている可能性があります
+3. Observation がコミュニティアダプターではなく `vrclog-go` 組み込みの VRChat アダプターによって生成されていないか確認してください
+
 ## vrclog-companion 固有のサポート
 
 ### Web UI の問題
@@ -153,9 +163,9 @@ Web UI で問題が発生している場合：
 
 Discord 通知が機能しない場合：
 
-1. `config.json` で Webhook URL が正しいことを確認
+1. `config.json` で Webhook URL が正しいことを確認 — **Webhook URL や `config.json` を公開 Issue に貼り付けないでください**
 2. Discord のサーバーが稼働していることを確認
-3. アプリケーションログでエラーメッセージを確認
+3. アプリケーションログでエラーメッセージを確認（共有する前に webhook URL は必ず編集してください）
 
 ## コミュニティガイドライン
 

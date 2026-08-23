@@ -64,10 +64,13 @@ Check all that apply. For repository-specific requirements, see the CONTRIBUTING
 - [ ] Code passes all tests / すべてのテストが成功
 - [ ] Code formatted and linted / コードをフォーマットし、Lintを通した
 - [ ] Documentation updated (if needed) / ドキュメントを更新（必要な場合）
+- [ ] Factual metadata in English/Japanese docs is synced, or a follow-up issue is linked (if applicable) / 英語版・日本語版の事実に関するメタデータを同期、またはフォローアップ Issue をリンク（該当する場合）
+- [ ] No secrets, raw logs, or unredacted credentials committed; log-derived fixtures/screenshots are redacted per [Fixture Privacy](https://github.com/vrclog/.github/blob/main/CONTRIBUTING.md#fixture-privacy) and [Privacy Notice](https://github.com/vrclog/.github/blob/main/CONTRIBUTING.md#privacy-notice) / シークレット・生のログ・編集されていない認証情報がコミットされていない。ログ由来の fixture やスクリーンショットは [Fixture Privacy](https://github.com/vrclog/.github/blob/main/CONTRIBUTING.ja.md#fixture-のプライバシー) と [プライバシーに関する注意](https://github.com/vrclog/.github/blob/main/CONTRIBUTING.ja.md#プライバシーに関する注意) に従って編集済み
 - [ ] Commit messages are clear and descriptive / コミットメッセージが明確で説明的
 
 > **Note**: For repository-specific setup and testing instructions, see:
 > - [vrclog-go CONTRIBUTING](https://github.com/vrclog/vrclog-go/blob/main/CONTRIBUTING.md)
+> - [vrclog-adapters CONTRIBUTING](https://github.com/vrclog/vrclog-adapters/blob/main/CONTRIBUTING.md)
 > - [vrclog-companion CONTRIBUTING](https://github.com/vrclog/vrclog-companion/blob/main/CONTRIBUTING.md)
 > - [Organization CONTRIBUTING](https://github.com/vrclog/.github/blob/main/CONTRIBUTING.md)
 

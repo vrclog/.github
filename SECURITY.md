@@ -19,40 +19,15 @@ We take security seriously. This document outlines how to report security vulner
 
 This security policy covers vulnerabilities in:
 
-- **vrclog-go**: Go library and CLI for log parsing
-- **vrclog-companion**: Log watcher with SQLite, Web UI, and Discord notifications
+- **vrclog-go**: Core Go library and CLI for reading, following, and parsing VRChat logs
+- **vrclog-adapters**: Community-project adapters (YamaPlayer, iwaSync3, etc.)
+- **vrclog-companion**: Local resident application with SQLite persistence, Web UI, HTTP API, and Discord notifications
 - Official vrclog documentation and websites
 - vrclog's GitHub organization infrastructure
 
-## Potential Security Concerns
+Detailed, implementation-level security documentation (parser resource limits, authentication middleware behavior, storage retention, etc.) lives alongside each repository's own code. This document defines the shared reporting process and the security expectations that apply across all three repositories.
 
-Given the nature of vrclog tools, potential security issues may include:
-
-### Data Exposure Risks
-
-- **Log path disclosure**: Exposing file system paths that could reveal sensitive directory structures
-- **Username/World name leakage**: Inadvertent exposure of usernames, world names, or instance IDs from logs
-- **Session information**: Leaking information that could identify specific play sessions
-
-### Application Security
-
-- **Path traversal**: Vulnerabilities allowing access to files outside intended directories
-- **Command injection**: In CLI tools, improper handling of user input
-- **Network exposure**: If running in server mode, unintended network accessibility or data exposure
-- **SQL injection**: In vrclog-companion, potential database vulnerabilities
-- **XSS/CSRF**: In vrclog-companion Web UI, cross-site scripting or request forgery
-
-### vrclog-companion Specific
-
-- **Authentication bypass**: Circumventing Basic Auth or token authentication
-- **API authorization**: Accessing API endpoints without proper permissions
-- **Discord webhook abuse**: Potential for webhook URL exposure or misuse
-- **LAN mode security**: Risks when LAN mode is enabled
-
-### Privacy Concerns
-
-- **Inadequate data sanitization**: Failing to properly redact sensitive information
-- **Unintended data collection**: Collecting or transmitting data without user consent
+Direct implementation-specific security notes are available in [vrclog-go Privacy and Security](https://github.com/vrclog/vrclog-go/blob/main/README.md#privacy-and-security), [vrclog-adapters Privacy / redaction](https://github.com/vrclog/vrclog-adapters/blob/main/README.md#privacy--redaction), and [vrclog-companion Security & Privacy](https://github.com/vrclog/vrclog-companion/blob/main/README.md#security--privacy).
 
 ## Reporting a Vulnerability
 
@@ -75,7 +50,7 @@ Report security vulnerabilities privately via email:
 Please provide as much information as possible:
 
 1. **Description**: Clear description of the vulnerability
-2. **Affected component**: Which tool (vrclog-go, vrclog-companion, etc.)
+2. **Affected component**: Which repository (vrclog-go, vrclog-adapters, vrclog-companion, etc.)
 3. **Affected versions**: Which versions are affected (if known)
 4. **Reproduction steps**: How to reproduce the issue
 5. **Impact assessment**: What could an attacker potentially do?
@@ -135,16 +110,32 @@ We recommend always using the latest version.
 ### General
 
 1. **Keep software updated**: Always use the latest version
-2. **Be careful with logs**: VRChat logs contain personal information (usernames, world names). Don't share them publicly without redaction
+2. **Be careful with logs**: VRChat logs contain personal information (usernames, world names, media URLs). Don't share them publicly without redaction
 3. **Review configurations**: Regularly review any configuration files for unintended settings
 
-### vrclog-companion Specific
+### Discord Webhook URLs
+
+vrclog-companion can send notifications through a Discord webhook. Treat the webhook URL as a credential:
+
+- Never paste it into a public issue, PR, screenshot, or chat message
+- Never commit it to a repository, including in `config.json` snippets
+- Rotate the webhook immediately if it is ever exposed
+
+### vrclog-adapters
+
+1. **Use official adapters**: Only use adapters from the official [vrclog-adapters](https://github.com/vrclog/vrclog-adapters) repository or sources you trust
+2. **Review before use**: Adapters interpret log content and may extract URLs from your local logs; review adapter source before adding a third-party adapter to your build
+
+For fixture redaction and adapter-specific privacy guidance, see [vrclog-adapters Privacy / redaction](https://github.com/vrclog/vrclog-adapters/blob/main/README.md#privacy--redaction).
+
+### vrclog-companion Network Exposure
 
 1. **Network exposure**: Only enable LAN mode on trusted networks
 2. **Basic Auth**: When LAN mode is enabled, ensure strong credentials are configured
-3. **Discord webhooks**: Keep webhook URLs confidential; rotate if compromised
-4. **Firewall**: Do not expose vrclog-companion to the public internet
-5. **Data directory**: Protect the data directory containing SQLite database and configuration files
+3. **Firewall**: Do not expose vrclog-companion to the public internet
+4. **Data directory**: Protect the data directory containing the SQLite database and configuration files
+
+For implementation details behind these recommendations (default bind address, authentication middleware, token handling), see [vrclog-companion Security & Privacy](https://github.com/vrclog/vrclog-companion/blob/main/README.md#security--privacy).
 
 ## Acknowledgments
 

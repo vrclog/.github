@@ -28,8 +28,9 @@ body:
       description: Which vrclog tool would this feature affect?
       options:
         - vrclog-go
+        - vrclog-adapters
         - vrclog-companion
-        - Both / Cross-project
+        - Multiple / Cross-project
         - Other / Not sure
     validations:
       required: true
@@ -77,6 +78,7 @@ body:
       description: Which component would this feature affect?
       options:
         - Library (Go package)
+        - Adapter
         - CLI tool
         - Backend / API
         - Web UI
@@ -92,6 +94,7 @@ body:
       description: |
         Describe a specific scenario where this feature would be useful.
         If applicable, include example log entries or expected output.
+        **Remember to redact usernames, world names, media URLs, local file paths, Discord webhook URLs, tokens, and other personal or sensitive information!**
       placeholder: |
         For example, when I'm monitoring logs for...
         The output would look like...

@@ -26,6 +26,7 @@ body:
       description: どのリポジトリのドキュメントを改善する必要がありますか？
       options:
         - vrclog-go
+        - vrclog-adapters
         - vrclog-companion
         - .github (organization ドキュメント)
         - その他 / 不明
