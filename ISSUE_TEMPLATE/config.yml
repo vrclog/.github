@@ -16,6 +16,12 @@ contact_links:
       For issues specific to the vrclog-go library and CLI, open an issue there.
       vrclog-go ライブラリと CLI に特化した問題は、こちらで Issue を作成してください。
 
+  - name: vrclog-adapters Repository
+    url: https://github.com/vrclog/vrclog-adapters/issues
+    about: |
+      For issues specific to community adapters (YamaPlayer, iwaSync3), open an issue there.
+      コミュニティアダプター（YamaPlayer、iwaSync3）に特化した問題は、こちらで Issue を作成してください。
+
   - name: vrclog-companion Repository
     url: https://github.com/vrclog/vrclog-companion/issues
     about: |

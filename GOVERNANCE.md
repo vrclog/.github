@@ -84,6 +84,8 @@ We follow [Semantic Versioning (SemVer)](https://semver.org/):
 - **v0.x.y**: Development phase. APIs may change between minor versions.
 - **v1.0.0+**: Stable API. Breaking changes require a new major version.
 
+Each repository (`vrclog-go`, `vrclog-adapters`, `vrclog-companion`) maintains its own independent version line. A major or minor release in one repository does not imply a corresponding release in another.
+
 ### Release Process
 
 1. Maintainer prepares release notes

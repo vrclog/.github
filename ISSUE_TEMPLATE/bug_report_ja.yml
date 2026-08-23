@@ -10,7 +10,7 @@ body:
 
         以下のフォームに記入して、問題の理解と再現にご協力ください。
 
-        **プライバシーに関する注意**: VRChat のログには個人情報（ユーザー名、ワールド名）が含まれています。共有する前に機密情報を編集してください。
+        **プライバシーに関する注意**: VRChat のログには個人情報（ユーザー名、ワールド名、メディア URL）が含まれています。共有する前に、Discord webhook URL、トークン、ローカルファイルパスを含む機密情報を編集してください。
 
   - type: checkboxes
     id: preflight
@@ -32,8 +32,9 @@ body:
       description: どの vrclog ツールに影響がありますか？
       options:
         - vrclog-go
+        - vrclog-adapters
         - vrclog-companion
-        - 両方 / 横断的
+        - 複数 / 横断的
         - その他 / 不明
     validations:
       required: true
@@ -43,7 +44,7 @@ body:
     attributes:
       label: ツールとバージョン
       description: どの vrclog ツールを使用していますか？バージョンは？
-      placeholder: "例: vrclog-go v0.1.0 または vrclog-companion v0.1.0"
+      placeholder: "例: vrclog-go v0.1.0、vrclog-adapters v0.1.0、または vrclog-companion v0.1.0"
     validations:
       required: true
 
@@ -64,7 +65,7 @@ body:
     attributes:
       label: ランタイム/ビルド情報（該当する場合）
       description: ソースからビルドした場合、どの Go バージョンを使用しましたか？vrclog-companion Web UI の問題の場合は Node.js バージョンも含めてください。
-      placeholder: "例: go1.23.0, Node.js v20.0.0"
+      placeholder: "例: go1.25.0, Node.js v20.0.0"
     validations:
       required: false
 
@@ -113,8 +114,8 @@ body:
       label: 関連するログまたはエラーメッセージ
       description: |
         関連するログ出力やエラーメッセージを含めてください。
-        **ユーザー名、ワールド名、その他の個人情報を必ず編集してください！**
-      placeholder: ログをここに貼り付けてください（個人情報を編集！）
+        **ユーザー名、ワールド名、メディア URL、ローカルファイルパス、Discord webhook URL、トークン、その他の個人情報や機密情報を必ず編集してください！**
+      placeholder: ログをここに貼り付けてください（個人情報・機密情報を編集！）
       render: text
     validations:
       required: false

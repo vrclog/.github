@@ -22,6 +22,7 @@ This document explains how to get help with vrclog projects and what kind of sup
 **Primary support channel for vrclog tools**
 
 - [vrclog-go Issues](https://github.com/vrclog/vrclog-go/issues)
+- [vrclog-adapters Issues](https://github.com/vrclog/vrclog-adapters/issues)
 - [vrclog-companion Issues](https://github.com/vrclog/vrclog-companion/issues)
 
 Use GitHub Issues for:
@@ -51,7 +52,8 @@ We provide support for:
 
 | Topic | Description |
 |-------|-------------|
-| **vrclog-go** | Installation, configuration, and usage of the Go library and CLI |
+| **vrclog-go** | Installation, configuration, and usage of the core Go library and CLI |
+| **vrclog-adapters** | Installation and usage of community adapters (YamaPlayer, iwaSync3) |
 | **vrclog-companion** | Setup, configuration, Web UI, Discord notifications, and API usage |
 | **Bug reports** | Issues with vrclog software behavior |
 | **Feature requests** | Suggestions for new functionality |
@@ -99,18 +101,17 @@ To help us help you faster:
 ### 1. Search Existing Issues
 
 Your question may already be answered. Search:
-- [vrclog-go Open Issues](https://github.com/vrclog/vrclog-go/issues)
-- [vrclog-go Closed Issues](https://github.com/vrclog/vrclog-go/issues?q=is%3Aissue+is%3Aclosed)
-- [vrclog-companion Open Issues](https://github.com/vrclog/vrclog-companion/issues)
-- [vrclog-companion Closed Issues](https://github.com/vrclog/vrclog-companion/issues?q=is%3Aissue+is%3Aclosed)
+- [vrclog-go Open Issues](https://github.com/vrclog/vrclog-go/issues) / [Closed Issues](https://github.com/vrclog/vrclog-go/issues?q=is%3Aissue+is%3Aclosed)
+- [vrclog-adapters Open Issues](https://github.com/vrclog/vrclog-adapters/issues) / [Closed Issues](https://github.com/vrclog/vrclog-adapters/issues?q=is%3Aissue+is%3Aclosed)
+- [vrclog-companion Open Issues](https://github.com/vrclog/vrclog-companion/issues) / [Closed Issues](https://github.com/vrclog/vrclog-companion/issues?q=is%3Aissue+is%3Aclosed)
 
 ### 2. Gather Information
 
 When reporting issues, please include:
 
-- **Tool and version**: e.g., `vrclog-go v0.1.0` or `vrclog-companion v0.1.0`
+- **Tool and version**: e.g., `vrclog-go v0.1.0`, `vrclog-adapters v0.1.0`, or `vrclog-companion v0.1.0`
 - **Operating system**: e.g., Windows 11 23H2
-- **Go version** (if building from source): e.g., `go1.23.0`
+- **Go version** (if building from source): e.g., `go1.25.0`
 - **Node.js version** (for vrclog-companion Web UI issues): e.g., `v20.0.0`
 - **Steps to reproduce**: What did you do?
 - **Expected behavior**: What did you expect to happen?
@@ -123,6 +124,7 @@ VRChat logs contain personal information. Before sharing:
 
 - **Remove usernames** of other players
 - **Remove world instance IDs** if they could identify specific sessions
+- **Remove media URLs, local file paths, Discord webhook URLs, and any tokens or credentials**
 - **Remove any other personal information**
 
 See our [Contributing Guide](./CONTRIBUTING.md) for more details on privacy.
@@ -139,6 +141,14 @@ Typically: `C:\Users\<YourUsername>\AppData\LocalLow\VRChat\VRChat\`
 
 Log files are named like: `output_log_YYYY-MM-DD_HH-MM-SS.txt`
 
+## vrclog-adapters Specific Support
+
+### An Adapter Isn't Producing Expected Events
+
+1. Confirm you're using the adapter for the correct world asset (for example, YamaPlayer logs are not interpreted by the iwaSync3 adapter)
+2. Confirm the log lines match the expected format — VRChat or the community project may have changed its log output
+3. Check whether the observation is being emitted by the built-in `vrclog-go` VRChat adapter instead of the community adapter
+
 ## vrclog-companion Specific Support
 
 ### Web UI Issues
@@ -153,9 +163,9 @@ If you're having issues with the Web UI:
 
 If Discord notifications aren't working:
 
-1. Verify your webhook URL is correct in `config.json`
+1. Verify your webhook URL is correct in `config.json` — **do not paste the webhook URL or `config.json` into a public issue**
 2. Check that Discord's servers are operational
-3. Review the application logs for error messages
+3. Review the application logs for error messages (redact any webhook URLs before sharing them)
 
 ## Community Guidelines
 

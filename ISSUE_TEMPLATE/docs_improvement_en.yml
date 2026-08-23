@@ -26,6 +26,7 @@ body:
       description: Which repository's documentation needs improvement?
       options:
         - vrclog-go
+        - vrclog-adapters
         - vrclog-companion
         - .github (organization docs)
         - Other / Not sure

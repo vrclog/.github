@@ -28,8 +28,9 @@ body:
       description: この機能はどの vrclog ツールに影響しますか？
       options:
         - vrclog-go
+        - vrclog-adapters
         - vrclog-companion
-        - 両方 / クロスプロジェクト
+        - 複数 / クロスプロジェクト
         - その他 / 不明
     validations:
       required: true
@@ -77,6 +78,7 @@ body:
       description: この機能はどのコンポーネントに影響しますか？
       options:
         - ライブラリ (Go パッケージ)
+        - アダプター
         - CLI ツール
         - バックエンド / API
         - Web UI
@@ -92,6 +94,7 @@ body:
       description: |
         この機能が役立つ具体的なシナリオを説明してください。
         該当する場合は、ログエントリの例や期待される出力を含めてください。
+        **ユーザー名、ワールド名、メディア URL、ローカルファイルパス、Discord webhook URL、トークン、その他の個人情報や機密情報を必ず編集してください！**
       placeholder: |
         例えば、...のログを監視しているとき
         出力は...のようになります

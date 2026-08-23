@@ -10,7 +10,7 @@ body:
 
         Please fill out the form below to help us understand and reproduce the issue.
 
-        **Privacy Notice**: VRChat logs contain personal information (usernames, world names). Please redact any sensitive information before sharing.
+        **Privacy Notice**: VRChat logs contain personal information (usernames, world names, media URLs). Please redact any sensitive information — including Discord webhook URLs, tokens, and local file paths — before sharing.
 
   - type: checkboxes
     id: preflight
@@ -32,8 +32,9 @@ body:
       description: Which vrclog tool is affected?
       options:
         - vrclog-go
+        - vrclog-adapters
         - vrclog-companion
-        - Both / Cross-project
+        - Multiple / Cross-project
         - Other / Unknown
     validations:
       required: true
@@ -43,7 +44,7 @@ body:
     attributes:
       label: Tool and Version
       description: Which vrclog tool are you using and what version?
-      placeholder: "e.g., vrclog-go v0.1.0 or vrclog-companion v0.1.0"
+      placeholder: "e.g., vrclog-go v0.1.0, vrclog-adapters v0.1.0, or vrclog-companion v0.1.0"
     validations:
       required: true
 
@@ -64,7 +65,7 @@ body:
     attributes:
       label: Runtime/Build Info (if applicable)
       description: If you built from source, what Go version did you use? For vrclog-companion Web UI issues, include Node.js version.
-      placeholder: "e.g., go1.23.0, Node.js v20.0.0"
+      placeholder: "e.g., go1.25.0, Node.js v20.0.0"
     validations:
       required: false
 
@@ -113,8 +114,8 @@ body:
       label: Relevant Logs or Error Messages
       description: |
         Please include any relevant log output or error messages.
-        **Remember to redact usernames, world names, and other personal information!**
-      placeholder: Paste logs here (redact personal info!)
+        **Remember to redact usernames, world names, media URLs, local file paths, Discord webhook URLs, tokens, and other personal or sensitive information!**
+      placeholder: Paste logs here (redact personal/sensitive info!)
       render: text
     validations:
       required: false

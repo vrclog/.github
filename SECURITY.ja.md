@@ -19,40 +19,15 @@
 
 このセキュリティポリシーは以下の脆弱性を対象とします：
 
-- **vrclog-go**: ログ解析用の Go ライブラリと CLI
-- **vrclog-companion**: SQLite、Web UI、Discord 通知機能を持つログ監視アプリ
+- **vrclog-go**: VRChat ログの読み取り・追跡・解析を行うコア Go ライブラリおよび CLI
+- **vrclog-adapters**: コミュニティプロジェクト向けアダプター（YamaPlayer、iwaSync3 など）
+- **vrclog-companion**: SQLite への永続化、Web UI、HTTP API、Discord 通知機能を持つローカル常駐アプリケーション
 - vrclog の公式ドキュメントとウェブサイト
 - vrclog の GitHub organization インフラストラクチャ
 
-## 潜在的なセキュリティ上の懸念
+実装レベルの詳細なセキュリティ文書（パーサーのリソース制限、認証ミドルウェアの挙動、ストレージの保持期間など）は、各リポジトリ自身のコードに付随して管理されます。この文書は、3つのリポジトリすべてに共通する報告プロセスとセキュリティ上の期待事項を定義するものです。
 
-vrclog ツールの性質上、以下のようなセキュリティ問題が考えられます：
-
-### データ露出リスク
-
-- **ログパスの開示**: 機密性の高いディレクトリ構造を明らかにする可能性のあるファイルシステムパスの露出
-- **ユーザー名/ワールド名の漏洩**: ログからのユーザー名、ワールド名、インスタンス ID の意図しない露出
-- **セッション情報**: 特定のプレイセッションを識別できる情報の漏洩
-
-### アプリケーションセキュリティ
-
-- **パストラバーサル**: 意図したディレクトリ外のファイルへのアクセスを許可する脆弱性
-- **コマンドインジェクション**: CLI ツールでのユーザー入力の不適切な処理
-- **ネットワーク露出**: サーバーモードで実行する場合、意図しないネットワークアクセスやデータ露出
-- **SQL インジェクション**: vrclog-companion でのデータベース脆弱性の可能性
-- **XSS/CSRF**: vrclog-companion Web UI でのクロスサイトスクリプティングやリクエストフォージェリ
-
-### vrclog-companion 固有
-
-- **認証バイパス**: Basic Auth やトークン認証の回避
-- **API 認可**: 適切な権限なしでの API エンドポイントへのアクセス
-- **Discord Webhook の悪用**: Webhook URL の露出や悪用の可能性
-- **LAN モードセキュリティ**: LAN モードが有効な場合のリスク
-
-### プライバシーに関する懸念
-
-- **不十分なデータサニタイズ**: 機密情報の適切な編集の失敗
-- **意図しないデータ収集**: ユーザーの同意なしにデータを収集または送信すること
+実装レベルの詳細なセキュリティ情報は、[vrclog-go Privacy and Security](https://github.com/vrclog/vrclog-go/blob/main/README.md#privacy-and-security)、[vrclog-adapters Privacy / redaction](https://github.com/vrclog/vrclog-adapters/blob/main/README.md#privacy--redaction)、[vrclog-companion Security & Privacy](https://github.com/vrclog/vrclog-companion/blob/main/README.md#security--privacy) を参照してください。
 
 ## 脆弱性の報告
 
@@ -75,7 +50,7 @@ vrclog ツールの性質上、以下のようなセキュリティ問題が考�
 できるだけ多くの情報を提供してください：
 
 1. **説明**: 脆弱性の明確な説明
-2. **影響を受けるコンポーネント**: どのツール（vrclog-go、vrclog-companion など）
+2. **影響を受けるコンポーネント**: どのリポジトリ（vrclog-go、vrclog-adapters、vrclog-companion など）
 3. **影響を受けるバージョン**: 影響を受けるバージョン（わかる場合）
 4. **再現手順**: 問題を再現する方法
 5. **影響評価**: 攻撃者は何ができる可能性がありますか？
@@ -135,16 +110,32 @@ vrclog ツールの性質上、以下のようなセキュリティ問題が考�
 ### 一般
 
 1. **ソフトウェアを最新に保つ**: 常に最新バージョンを使用してください
-2. **ログに注意**: VRChat ログには個人情報（ユーザー名、ワールド名）が含まれています。編集せずに公開しないでください
+2. **ログに注意**: VRChat ログには個人情報（ユーザー名、ワールド名、メディア URL）が含まれています。編集せずに公開しないでください
 3. **設定を確認**: 意図しない設定がないか、設定ファイルを定期的に確認してください
 
-### vrclog-companion 固有
+### Discord Webhook URL
+
+vrclog-companion は Discord webhook を通じて通知を送信できます。webhook URL は認証情報として扱ってください：
+
+- 公開 Issue、PR、スクリーンショット、チャットメッセージに貼り付けない
+- `config.json` の抜粋を含め、リポジトリにコミットしない
+- 万が一漏洩した場合は、直ちに webhook をローテーションしてください
+
+### vrclog-adapters
+
+1. **公式アダプターを使用**: 公式の [vrclog-adapters](https://github.com/vrclog/vrclog-adapters) リポジトリ、または信頼できるソースのアダプターのみを使用してください
+2. **使用前にレビュー**: アダプターはログの内容を解釈し、ローカルログから URL を抽出する場合があります。サードパーティ製アダプターをビルドに追加する前に、ソースコードをレビューしてください
+
+fixture の墨消しとアダプター固有のプライバシーガイダンスについては、[vrclog-adapters Privacy / redaction](https://github.com/vrclog/vrclog-adapters/blob/main/README.md#privacy--redaction) を参照してください。
+
+### vrclog-companion のネットワーク露出
 
 1. **ネットワーク露出**: 信頼できるネットワークでのみ LAN モードを有効にしてください
 2. **Basic Auth**: LAN モードが有効な場合、強力な認証情報を設定してください
-3. **Discord Webhook**: Webhook URL を機密に保ち、漏洩した場合はローテーションしてください
-4. **ファイアウォール**: vrclog-companion をパブリックインターネットに公開しないでください
-5. **データディレクトリ**: SQLite データベースと設定ファイルを含むデータディレクトリを保護してください
+3. **ファイアウォール**: vrclog-companion をパブリックインターネットに公開しないでください
+4. **データディレクトリ**: SQLite データベースと設定ファイルを含むデータディレクトリを保護してください
+
+これらの推奨事項の背後にある実装の詳細（デフォルトのバインドアドレス、認証ミドルウェア、トークンの取り扱いなど）については、[vrclog-companion Security & Privacy](https://github.com/vrclog/vrclog-companion/blob/main/README.md#security--privacy) を参照してください。
 
 ## 謝辞
 
